@@ -155,8 +155,10 @@ void test_l1_dsHdmiIn_negative_dsHdmiInInit(void) {
     UT_ASSERT_EQUAL(dsHdmiInInit(), dsERR_NONE);
 
     // Step 2: Call dsHdmiInInit() again without terminating the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     DS_ASSERT_AUTO_TERM_NUMERICAL(dsHdmiInInit(), dsERR_ALREADY_INITIALIZED);
-
+    #endif
+	
     // Step 3: Call dsHdmiInTerm() to ensure deinitialization
     UT_ASSERT_EQUAL(dsHdmiInTerm(), dsERR_NONE);
 
@@ -223,8 +225,10 @@ void test_l1_dsHdmiIn_negative_dsHdmiInTerm(void) {
     gTestID = 4;
     UT_LOG("\n In %s [%02d%03d]\n", __FUNCTION__, gTestGroup, gTestID); 
     // Step 1: Call dsHdmiInTerm() without initializing the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     UT_ASSERT_EQUAL(dsHdmiInTerm(), dsERR_NOT_INITIALIZED);
-
+    #endif
+	
     // Step 2: Initialize the HDMI input sub-system using dsHdmiInInit()
     UT_ASSERT_EQUAL(dsHdmiInInit(), dsERR_NONE);
 
@@ -232,7 +236,9 @@ void test_l1_dsHdmiIn_negative_dsHdmiInTerm(void) {
     UT_ASSERT_EQUAL(dsHdmiInTerm(), dsERR_NONE);
 
     // Step 4: Call dsHdmiInTerm() without initializing the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     UT_ASSERT_EQUAL(dsHdmiInTerm(), dsERR_NOT_INITIALIZED);
+    #endif
 
     UT_LOG("\n Out %s\n", __FUNCTION__); 
 }
@@ -306,19 +312,25 @@ void test_l1_dsHdmiIn_negative_dsHdmiInGetNumberOfInputs(void) {
     uint8_t numInputs;
 
     // Step 1: Call dsHdmiInGetNumberOfInputs() without initializing the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     UT_ASSERT_EQUAL(dsHdmiInGetNumberOfInputs(&numInputs), dsERR_NOT_INITIALIZED);
+    #endif
 
     // Step 2: Initialize the HDMI input sub-system using dsHdmiInInit()
     UT_ASSERT_EQUAL(dsHdmiInInit(), dsERR_NONE);
 
     // Step 3: Call dsHdmiInGetNumberOfInputs() with NULL as the parameter
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     DS_ASSERT_AUTO_TERM_NUMERICAL(dsHdmiInGetNumberOfInputs(NULL), dsERR_INVALID_PARAM);
+    #endif
 
     // Step 4: Call dsHdmiInTerm() to ensure deinitialization
     UT_ASSERT_EQUAL(dsHdmiInTerm(), dsERR_NONE);
 
     // Step 5: Call dsHdmiInGetNumberOfInputs() after termination of the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     UT_ASSERT_EQUAL(dsHdmiInGetNumberOfInputs(&numInputs), dsERR_NOT_INITIALIZED);
+    #endif
 
     UT_LOG("\n Out %s\n", __FUNCTION__); 
 }
@@ -400,19 +412,25 @@ void test_l1_dsHdmiIn_negative_dsHdmiInGetStatus(void) {
     dsHdmiInStatus_t status;
 
     // Step 1: Call dsHdmiInGetStatus() without initializing the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     UT_ASSERT_EQUAL(dsHdmiInGetStatus(&status), dsERR_NOT_INITIALIZED);
+    #endif
 
     // Step 2: Initialize the HDMI input sub-system using dsHdmiInInit()
     UT_ASSERT_EQUAL(dsHdmiInInit(), dsERR_NONE);
 
     // Step 3: Call dsHdmiInGetStatus() with NULL as the parameter
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     DS_ASSERT_AUTO_TERM_NUMERICAL(dsHdmiInGetStatus(NULL), dsERR_INVALID_PARAM);
+    #endif
 
     // Step 4: Call dsHdmiInTerm() to ensure deinitialization
     UT_ASSERT_EQUAL(dsHdmiInTerm(), dsERR_NONE);
 
     // Step 5: Call dsHdmiInGetStatus() after terminating the HDMI input sub-system
+    #ifdef DISABLE_ENHANCED_ERROR_CODE
     UT_ASSERT_EQUAL(dsHdmiInGetStatus(&status), dsERR_NOT_INITIALIZED);
+    #endif
 
     UT_LOG("\n Out %s\n", __FUNCTION__); 
 }
